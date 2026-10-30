@@ -1,3 +1,11 @@
+
+How to use this script in Unity:
+
+1. Create the Script: Right-click in your Project window → Create → C# Script, and name it SnakeMovement.
+2. Paste the Code: Open the script and replace its contents with the code block above.
+3. Attach to Snake: Drag and drop this script onto your Snake head game object in the Hierarchy.
+4. Press Play: The snake will immediately and continuously move upward. You can adjust the Speed parameter directly in the Inspector window while the game is running to find the perfect pace.
+
 ```
 using UnityEngine;
 
