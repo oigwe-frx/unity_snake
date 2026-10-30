@@ -1,0 +1,73 @@
+```
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class SnakeMovement : MonoBehaviour
+{
+    [Header("Grid Movement Settings")]
+    [Tooltip("How many grid steps the snake takes per second (lower = slower, higher = faster)")]
+    public float movesPerSecond = 5f;
+
+    private Vector2 moveDirection = Vector2.up;
+    private Vector2 nextDirection = Vector2.up; // Buffers the next turn to prevent rapid double-tap self-collisions
+    private bool hasStarted = false; 
+    private float moveTimer = 0f;
+
+    void Update()
+    {
+        HandleInput();
+        
+        // Only progress the timer and step forward if the player started the game
+        if (hasStarted)
+        {
+            moveTimer += Time.deltaTime;
+
+            // Calculate how much time needs to pass before taking a 1-unit step
+            float timeBetweenMoves = 1f / movesPerSecond;
+
+            if (moveTimer >= timeBetweenMoves)
+            {
+                // Lock in the buffered direction right as the move happens
+                moveDirection = nextDirection;
+
+                // Move exactly 1 unit (Vector2 to Vector3 conversion implicitly handles this)
+                transform.position += (Vector3)moveDirection;
+
+                // Reset the timer while preserving any overflow fraction of a frame
+                moveTimer -= timeBetweenMoves;
+            }
+        }
+    }
+
+    private void HandleInput()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) return;
+
+        // Change buffer to Up (Only if current running direction isn't Down)
+        if ((keyboard.upArrowKey.wasPressedThisFrame || keyboard.wKey.wasPressedThisFrame) && moveDirection != Vector2.down)
+        {
+            nextDirection = Vector2.up;
+            hasStarted = true;
+        }
+        // Change buffer to Down (Only if current running direction isn't Up)
+        else if ((keyboard.downArrowKey.wasPressedThisFrame || keyboard.sKey.wasPressedThisFrame) && moveDirection != Vector2.up)
+        {
+            nextDirection = Vector2.down;
+            hasStarted = true;
+        }
+        // Change buffer to Left (Only if current running direction isn't Right)
+        else if ((keyboard.leftArrowKey.wasPressedThisFrame || keyboard.aKey.wasPressedThisFrame) && moveDirection != Vector2.right)
+        {
+            nextDirection = Vector2.left;
+            hasStarted = true;
+        }
+        // Change buffer to Right (Only if current running direction isn't Left)
+        else if ((keyboard.rightArrowKey.wasPressedThisFrame || keyboard.dKey.wasPressedThisFrame) && moveDirection != Vector2.left)
+        {
+            nextDirection = Vector2.right;
+            hasStarted = true;
+        }
+    }
+}
+```
