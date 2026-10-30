@@ -1,0 +1,27 @@
+To create the Snake sprite objects with a separate head and body in Unity 2D, set up individual 2D sprite game objects, assign distinct colors or textures, and organize them into prefabs.
+
+1. Create the Snake Head Sprite
+
+• Right-click in the Hierarchy window and select 2D Object > Sprites > Square (or import a custom pixel/art sprite).
+• Name the GameObject SnakeHead.
+• In the Sprite Renderer component, choose a bright or distinct color (such as bright yellow or vibrant green).
+• Reset the Transform position to (0, 0, 0) using the Transform menu.
+
+2. Create the Snake Body / Tail Sprite
+
+• Right-click in the Hierarchy and select 2D Object > Sprites > Square.
+• Name the GameObject SnakeBody (or SnakeTail).
+• In the Sprite Renderer component, assign a complementary color (such as a darker green or greeny-yellow) so it stands out from the head.
+• Scale the body sprite slightly down (e.g., set X and Y scale to 0.9 or adjust the collider size to 0.75) to prevent overlapping visual clutter or accidental self-collisions.
+• Reset its Transform position as needed.
+
+3. Configure Colliders and Rigidbody (Optional for Physics)
+
+• Select SnakeHead, add a Rigidbody 2D component, and set Body Type to Kinematic (if moving via script).
+• Add a Box Collider 2D to both the head and body, and check the Is Trigger box to handle eating and segment logic cleanly.
+
+4. Turn Them into Prefabs
+
+• Create a folder named Prefabs in your Project assets window.
+• Drag both the SnakeHead and SnakeBody game objects from the Hierarchy into the Prefabs folder so you can instantiate and grow the body dynamically through C# or visual scripting.
+• Delete the temporary SnakeBody instance from the scene once the prefab is saved.
