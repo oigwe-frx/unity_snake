@@ -1,0 +1,19 @@
+```
+using UnityEngine;
+
+public class SnakeMovement : MonoBehaviour
+{
+    [Header("Movement Settings")]
+    [Tooltip("Speed of the snake's movement")]
+    public float speed = 5f;
+
+    // The direction vector initialized to always point upwards
+    private Vector2 moveDirection = Vector2.up;
+
+    void Update()
+    {
+        // Moves the snake up by 'speed' units per second along the Y-axis
+        transform.Translate(moveDirection * speed * Time.deltaTime);
+    }
+}
+```
